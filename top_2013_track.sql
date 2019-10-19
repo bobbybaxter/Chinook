@@ -1,7 +1,7 @@
-select top (1) with ties t.Name, count(t.Name) as Sales
+select top (1) with ties t.TrackId, t.Name, count(il.Quantity) as Sales
 from Track t
-	join InvoiceLine l on l.TrackId = t.TrackId
-	join Invoice i on i.InvoiceId = l.InvoiceId
+	join InvoiceLine il on il.TrackId = t.TrackId
+	join Invoice i on i.InvoiceId = il.InvoiceId
 where year(i.InvoiceDate) = 2013
-group by t.Name
+group by t.TrackId, t.Name
 order by Sales desc
